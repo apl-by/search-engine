@@ -4,6 +4,7 @@ import { SxProps, Theme } from "@mui/material/styles";
 import { FC, useEffect, useState } from "react";
 import { svgFilterId } from "./data";
 import classNames from "classnames";
+import useLinearTimeControl from "../../hooks/useLinearTimeControl";
 
 type TProps = {
   sxRoot?: SxProps<Theme>;
@@ -11,12 +12,24 @@ type TProps = {
 };
 
 const Title: FC<TProps> = ({ sxRoot = [], mainText }) => {
+  const { startTimer, currentAction } = useLinearTimeControl([
+    ["toggleToStart", 0],
+    ["toggle", 1300],
+  ]);
+
   const [state, setState] = useState({ toggle: true, toggleToStart: false });
   const [transitionState, setTransitionState] = useState(false);
 
   useEffect(() => {
-    if (mainText.length < 2) return;
-  }, [mainText]);
+    // if (mainText.length < 2) return;
+    if (currentAction === "toggleToStart") {
+      setState({ ...state, toggleToStart: !state.toggleToStart });
+    }
+
+    if (currentAction === "toggle") {
+      setState({ ...state, toggle: !state.toggle });
+    }
+  }, [currentAction]);
 
   const { default_hidden, hidden, shown, shouldHide, shouldShow } = styles;
   const cnHiddenSpan = classNames(default_hidden);
@@ -87,9 +100,10 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText }) => {
       {/*  delete later */}
       <button
         style={{ position: "absolute", top: "-70px" }}
-        onClick={() => setState({ ...state, toggle: !state.toggle })}
+        // onClick={() => setState({ ...state, toggle: !state.toggle })}
+        onClick={() => startTimer({ startDelay: 0, repeatCount: 3, repeatDelay: 300 })}
       >
-        toggle
+        start
       </button>
       <button
         style={{ position: "absolute", top: "-40px" }}
