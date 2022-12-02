@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import Title from "../../components/Title/Title";
-import { titleMainText } from "./data";
+import { titleMainText, titleSecondaryText } from "./data";
 
 const MainPage = () => {
   return (
@@ -15,7 +15,11 @@ const MainPage = () => {
         alignItems: "center",
       }}
     >
-      <Title sxRoot={{ mt: 15 }} mainText={titleMainText} />
+      <Title
+        sxRoot={{ mt: 15, mb: 4 }}
+        mainText={titleMainText}
+        secondaryText={titleSecondaryText}
+      />
       <SearchForm />
     </Box>
   );

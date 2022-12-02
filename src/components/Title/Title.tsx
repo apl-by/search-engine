@@ -2,52 +2,113 @@ import styles from "./Title.module.css";
 import { Box, Typography } from "@mui/material";
 import { SxProps, Theme } from "@mui/material/styles";
 import { FC, useEffect, useState } from "react";
-import { svgFilterId } from "./data";
+import { svgFilterId, timeControlMap } from "./data";
 import classNames from "classnames";
 import useLinearTimeControl from "../../hooks/useLinearTimeControl";
 
 type TProps = {
   sxRoot?: SxProps<Theme>;
   mainText: Array<string>;
+  secondaryText?: Array<string>;
 };
 
-const Title: FC<TProps> = ({ sxRoot = [], mainText }) => {
-  const { startTimer, currentAction } = useLinearTimeControl([
-    ["toggleToStart", 0],
-    ["toggle", 1300],
-  ]);
+const Title: FC<TProps> = ({ sxRoot = [], mainText, secondaryText }) => {
+  const { startTimer, currentAction, isTransition } =
+    useLinearTimeControl(timeControlMap);
 
   const [state, setState] = useState({ toggle: true, toggleToStart: false });
-  const [transitionState, setTransitionState] = useState(false);
+  const [textWillBeUsed, setTextWillBeUsed] = useState(mainText);
+  const [value, setValue] = useState({
+    first: mainText[0],
+    second: mainText[1],
+  });
+  const [count, setCount] = useState(0);
+
+  const reset = () => {
+    setState({ toggle: true, toggleToStart: false });
+    setValue({
+      first: mainText[0],
+      second: mainText[1],
+    });
+    setCount(0);
+  };
+
+  const handleTitleClick = () => {
+    if (isTransition) return;
+    let text: string[];
+    if (secondaryText === undefined) text = mainText;
+    else {
+      text = textWillBeUsed === mainText ? secondaryText : mainText;
+    }
+
+    setTextWillBeUsed(text);
+    setValue({
+      first: text[0],
+      second: text[1],
+    });
+    startTimer({
+      startDelay: 0,
+      repeatCount: text.length - 1,
+      repeatDelay: 0,
+    });
+  };
 
   useEffect(() => {
-    // if (mainText.length < 2) return;
     if (currentAction === "toggleToStart") {
       setState({ ...state, toggleToStart: !state.toggleToStart });
     }
 
     if (currentAction === "toggle") {
+      const keyForUpd = count % 2 === 0 ? "first" : "second";
+      const valueForUpd =
+        count + 2 === textWillBeUsed.length
+          ? textWillBeUsed[0]
+          : textWillBeUsed[count + 2];
+      setCount(count + 1);
+      setValue({ ...value, [keyForUpd]: valueForUpd });
       setState({ ...state, toggle: !state.toggle });
     }
   }, [currentAction]);
 
-  const { default_hidden, hidden, shown, shouldHide, shouldShow } = styles;
-  const cnHiddenSpan = classNames(default_hidden);
-  const cnFirstSpan = classNames({
-    [`${shown}`]: state.toggle,
-    [`${shouldHide}`]: state.toggle && state.toggleToStart,
-    [`${hidden}`]: !state.toggle,
-    [`${shouldShow}`]: !state.toggle && !state.toggleToStart,
-  });
-  const cnSecondSpan = classNames({
-    [`${shown}`]: !state.toggle,
-    [`${shouldHide}`]: !state.toggle && !state.toggleToStart,
-    [`${hidden}`]: state.toggle,
-    [`${shouldShow}`]: state.toggle && state.toggleToStart,
-  });
+  useEffect(() => {
+    if (!isTransition && currentAction) reset();
+  }, [isTransition]);
+
+  useEffect(() => {
+    if (mainText.length < 2) return;
+
+    startTimer({
+      startDelay: 1000,
+      repeatCount: mainText.length - 1,
+      repeatDelay: 0,
+    });
+  }, []);
+
+  const { main, main_hidden, hidden, shown, shouldHide, shouldShow } = styles;
+
+  const cnHiddenSpan = classNames(main, isTransition && main_hidden);
+  const cnFirstSpan = classNames(
+    {
+      [`${shown}`]: state.toggle,
+      [`${shouldHide}`]: state.toggle && state.toggleToStart,
+      [`${hidden}`]: !state.toggle,
+      [`${shouldShow}`]: !state.toggle && !state.toggleToStart,
+    },
+    !isTransition && main_hidden
+  );
+  const cnSecondSpan = classNames(
+    {
+      [`${shown}`]: !state.toggle,
+      [`${shouldHide}`]: !state.toggle && !state.toggleToStart,
+      [`${hidden}`]: state.toggle,
+      [`${shouldShow}`]: state.toggle && state.toggleToStart,
+    },
+    !isTransition && main_hidden
+  );
 
   return (
     <Box
+      onClick={handleTitleClick}
       sx={[
         {
           display: "flex",
@@ -58,22 +119,22 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText }) => {
     >
       <Typography
         variant="h1"
-        gutterBottom
         sx={{
           display: "flex",
           flexDirection: "column",
           position: "relative",
-          cursor: "default",
+          cursor: "pointer",
+          userSelect: "none",
         }}
       >
         <span id="hidden" className={cnHiddenSpan}>
-          Apl-by
+          {mainText[0]}
         </span>
         <span id="first" className={cnFirstSpan}>
-          Example
+          {value.first}
         </span>
         <span id="second" className={cnSecondSpan}>
-          just do that
+          {value.second}
         </span>
       </Typography>
 
@@ -96,23 +157,6 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText }) => {
           </filter>
         </defs>
       </svg>
-
-      {/*  delete later */}
-      <button
-        style={{ position: "absolute", top: "-70px" }}
-        // onClick={() => setState({ ...state, toggle: !state.toggle })}
-        onClick={() => startTimer({ startDelay: 0, repeatCount: 3, repeatDelay: 300 })}
-      >
-        start
-      </button>
-      <button
-        style={{ position: "absolute", top: "-40px" }}
-        onClick={() =>
-          setState({ ...state, toggleToStart: !state.toggleToStart })
-        }
-      >
-        toggleToStart
-      </button>
     </Box>
   );
 };

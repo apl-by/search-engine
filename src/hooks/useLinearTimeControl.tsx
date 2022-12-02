@@ -9,7 +9,7 @@ const useLinearTimeControl = (map: TTimeMap) => {
   const [currentRepeat, setCurrentRepeat] = useState(0);
   const [repeatDelay, setRepeatDelay] = useState(0);
   const [repeatCount, setRepeatCount] = useState(0);
-  const [isStart, setIsStart] = useState(false);
+  const [isTransition, setIsTransition] = useState(false);
   const [isSetTimeout, setIsSetTimeout] = useState(false);
 
   useEffect(() => {
@@ -24,21 +24,21 @@ const useLinearTimeControl = (map: TTimeMap) => {
 
   const startTimer = useCallback(
     (options = { startDelay: 0, repeatCount: 0, repeatDelay: 0 }) => {
-      if (isStart) return;
+      if (isTransition) return;
       reset();
       setRepeatCount(options.repeatCount);
       setRepeatDelay(options.repeatDelay);
 
       const timer = setTimeout(() => {
-        setIsStart(true);
+        setIsTransition(true);
       }, options.startDelay);
       timerRef.current = timer;
     },
-    [isStart]
+    [isTransition]
   );
 
   useEffect(() => {
-    if (!isStart || isSetTimeout) return;
+    if (!isTransition || isSetTimeout) return;
 
     let [action, time] = map[currentInd];
     if (currentRepeat > 0 && currentInd === 0) time = repeatDelay;
@@ -49,7 +49,7 @@ const useLinearTimeControl = (map: TTimeMap) => {
         setCurrentInd(0);
         if (currentRepeat === repeatCount) {
           setIsSetTimeout(false);
-          return setIsStart(false);
+          return setIsTransition(false);
         }
         setCurrentRepeat(currentRepeat + 1);
         setIsSetTimeout(false);
@@ -62,7 +62,7 @@ const useLinearTimeControl = (map: TTimeMap) => {
     setIsSetTimeout(true);
     timerRef.current = timer;
   }, [
-    isStart,
+    isTransition,
     currentInd,
     map,
     isSetTimeout,
@@ -71,7 +71,7 @@ const useLinearTimeControl = (map: TTimeMap) => {
     repeatDelay,
   ]);
 
-  return { startTimer, currentAction };
+  return { startTimer, currentAction, isTransition };
 };
 
 export default useLinearTimeControl;

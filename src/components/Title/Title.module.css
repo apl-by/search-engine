@@ -1,4 +1,13 @@
-.default_hidden {
+.main {
+  filter: blur(0);
+  transition: filter 1s;
+}
+
+.main:hover {
+  filter: blur(3px);
+}
+
+.main_hidden {
   visibility: hidden;
 }
 
