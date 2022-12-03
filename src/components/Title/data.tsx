@@ -8,3 +8,10 @@ export const timeControlMap: TTimeMap = [
   ["toggleToStart", 0],
   ["toggle", 1050],
 ];
+
+export const timerOptions = {
+  startDelay: 0,
+  repeatCount: 0,
+  repeatDelay: 0,
+  endDelay: 1000,
+};

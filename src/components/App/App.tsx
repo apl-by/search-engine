@@ -1,9 +1,7 @@
 import React from "react";
 import Container from "@mui/material/Container";
 // import { useTheme } from '@mui/material/styles';
-import { blue } from "@mui/material/colors";
 import MainPage from "../../pages/MainPage/MainPage";
-import theme from "../../themes/theme";
 
 const App = () => {
   // const theme = useTheme()

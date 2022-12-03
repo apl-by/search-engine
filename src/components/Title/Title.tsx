@@ -2,7 +2,7 @@ import styles from "./Title.module.css";
 import { Box, Typography } from "@mui/material";
 import { SxProps, Theme } from "@mui/material/styles";
 import { FC, useEffect, useState } from "react";
-import { svgFilterId, timeControlMap } from "./data";
+import { svgFilterId, timeControlMap, timerOptions } from "./data";
 import classNames from "classnames";
 import useLinearTimeControl from "../../hooks/useLinearTimeControl";
 
@@ -46,11 +46,7 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText, secondaryText }) => {
       first: text[0],
       second: text[1],
     });
-    startTimer({
-      startDelay: 0,
-      repeatCount: text.length - 1,
-      repeatDelay: 0,
-    });
+    startTimer({ ...timerOptions, repeatCount: text.length - 1 });
   };
 
   useEffect(() => {
@@ -78,9 +74,9 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText, secondaryText }) => {
     if (mainText.length < 2) return;
 
     startTimer({
+      ...timerOptions,
       startDelay: 1000,
       repeatCount: mainText.length - 1,
-      repeatDelay: 0,
     });
   }, []);
 
