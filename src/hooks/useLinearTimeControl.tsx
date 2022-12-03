@@ -36,6 +36,7 @@ const useLinearTimeControl = (map: TTimeMap) => {
       const timer = setTimeout(() => {
         setIsTransition(true);
       }, options.startDelay);
+
       timerRef.current = timer;
     },
     [isTransition]
@@ -50,16 +51,19 @@ const useLinearTimeControl = (map: TTimeMap) => {
 
     const timer = setTimeout(() => {
       setCurrentAction(action);
+
       if (currentInd === map.length - 1) {
         setCurrentInd(0);
         if (currentRepeat === repeatCount) {
           setIsSetTimeout(false);
-          return setIsTransition(false);
+          setIsTransition(false);
+          return;
         }
         setCurrentRepeat(currentRepeat + 1);
         setIsSetTimeout(false);
         return;
       }
+
       setCurrentInd(currentInd + 1);
       setIsSetTimeout(false);
     }, time);

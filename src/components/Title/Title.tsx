@@ -6,6 +6,7 @@ import { svgFilterId, timeControlMap, timerOptions } from "./data";
 import classNames from "classnames";
 import useLinearTimeControl from "../../hooks/useLinearTimeControl";
 
+
 type TProps = {
   sxRoot?: SxProps<Theme>;
   mainText: Array<string>;

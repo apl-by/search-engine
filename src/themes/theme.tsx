@@ -9,7 +9,7 @@ let theme = createTheme({
     h1: {
       fontSize: "86px",
       fontWeight: 600,
-      color: "#1a237e",
+      color: indigo[900],
     },
   },
 });

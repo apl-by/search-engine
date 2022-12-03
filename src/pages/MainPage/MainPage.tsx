@@ -2,8 +2,14 @@ import { Box } from "@mui/material";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import Title from "../../components/Title/Title";
 import { titleMainText, titleSecondaryText } from "./data";
+import { FC } from "react";
 
-const MainPage = () => {
+type TProps = {
+  value: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const MainPage: FC<TProps> = ({ value, setInputValue }) => {
   return (
     <Box
       component={"main"}
@@ -20,7 +26,11 @@ const MainPage = () => {
         mainText={titleMainText}
         secondaryText={titleSecondaryText}
       />
-      <SearchForm />
+      <SearchForm
+        onSubmit={() => void 0}
+        value={value}
+        setInputValue={setInputValue}
+      />
     </Box>
   );
 };
