@@ -36,7 +36,7 @@ const SearchInput: FC<TProps> = ({ value, setInputValue }) => {
       onChange={handleChange}
       value={value}
       InputProps={{
-        sx: { borderRadius: "50px" },
+        sx: { borderRadius: "50px", boxShadow: 3 },
         startAdornment: (
           <InputAdornment position="start" disablePointerEvents>
             <SearchIcon />

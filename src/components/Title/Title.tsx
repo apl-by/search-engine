@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from "react";
 import { svgFilterId, timeControlMap, timerOptions } from "./data";
 import classNames from "classnames";
 import useLinearTimeControl from "../../hooks/useLinearTimeControl";
-
+import SvgFilter from "../common/SvgFilter/SvgFilter";
 
 type TProps = {
   sxRoot?: SxProps<Theme>;
@@ -109,7 +109,6 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText, secondaryText }) => {
       sx={[
         {
           display: "flex",
-          filter: `url(#${svgFilterId})`,
         },
         ...(Array.isArray(sxRoot) ? sxRoot : [sxRoot]),
       ]}
@@ -122,6 +121,7 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText, secondaryText }) => {
           position: "relative",
           cursor: "pointer",
           userSelect: "none",
+          filter: `url(#${svgFilterId})`,
         }}
       >
         <span id="hidden" className={cnHiddenSpan}>
@@ -134,26 +134,7 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText, secondaryText }) => {
           {value.second}
         </span>
       </Typography>
-
-      <svg
-        id="filter"
-        width={"1px"}
-        height={"1px"}
-        style={{ position: "absolute", visibility: "hidden" }}
-      >
-        <defs>
-          <filter id={svgFilterId}>
-            <feColorMatrix
-              in="SourceGraphic"
-              type="matrix"
-              values="1 0 0 0 0
-									0 1 0 0 0
-									0 0 1 0 0
-									0 0 0 300 -155"
-            />
-          </filter>
-        </defs>
-      </svg>
+      <SvgFilter svgFilterId={svgFilterId} />
     </Box>
   );
 };

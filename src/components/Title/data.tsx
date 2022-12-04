@@ -1,6 +1,7 @@
 import { TTimeMap } from "../../types/types";
+import { generateId } from "../../utils";
 
-export const svgFilterId = "titleFilter";
+export const svgFilterId = "id" + generateId();
 
 /*  [actionName, time] - элемент массива, где actionName - имя действия,
 которое вернется через время time */
