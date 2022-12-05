@@ -1,5 +1,5 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { indigo } from '@mui/material/colors';
+import { createTheme } from "@mui/material/styles";
+import { indigo } from "@mui/material/colors";
 
 let theme = createTheme({
   palette: {
@@ -13,7 +13,5 @@ let theme = createTheme({
     },
   },
 });
-
-theme = responsiveFontSizes(theme);
 
 export default theme;
