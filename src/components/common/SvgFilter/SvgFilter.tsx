@@ -1,10 +1,11 @@
-import {FC} from 'react';
+import { FC } from "react";
 
 type TProps = {
   svgFilterId: string;
+  filterValues: string;
 };
 
-const SvgFilter: FC<TProps> = ({ svgFilterId }) => {
+const SvgFilter: FC<TProps> = ({ svgFilterId, filterValues }) => {
   return (
     <svg
       id={"svg-" + svgFilterId}
@@ -17,10 +18,7 @@ const SvgFilter: FC<TProps> = ({ svgFilterId }) => {
           <feColorMatrix
             in="SourceGraphic"
             type="matrix"
-            values="1 0 0 0 0
-									0 1 0 0 0
-									0 0 1 0 0
-									0 0 0 320 -140"
+            values={filterValues}
           />
         </filter>
       </defs>

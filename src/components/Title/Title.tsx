@@ -138,7 +138,13 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText, secondaryText }) => {
           {value.second}
         </span>
       </Typography>
-      <SvgFilter svgFilterId={svgFilterId} />
+      <SvgFilter
+        svgFilterId={svgFilterId}
+        filterValues="1 0 0 0 0
+									0 1 0 0 0
+									0 0 1 0 0
+									0 0 0 320 -140"
+      />
     </Box>
   );
 };
