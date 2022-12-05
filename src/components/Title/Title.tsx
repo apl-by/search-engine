@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from "react";
 import { svgFilterId, timeControlMap, timerOptions } from "./data";
 import classNames from "classnames";
 import useLinearTimeControl from "../../hooks/useLinearTimeControl";
+import useFirstMountState from "../../hooks/useFirstMountState";
 import SvgFilter from "../common/SvgFilter/SvgFilter";
 
 type TProps = {
@@ -16,6 +17,7 @@ type TProps = {
 const Title: FC<TProps> = ({ sxRoot = [], mainText, secondaryText }) => {
   const { startTimer, currentAction, isTransition } =
     useLinearTimeControl(timeControlMap);
+  const isFirstMount = useFirstMountState();
 
   const [state, setState] = useState({ toggle: true, toggleToStart: false });
   const [textWillBeUsed, setTextWillBeUsed] = useState(mainText);
@@ -69,17 +71,19 @@ const Title: FC<TProps> = ({ sxRoot = [], mainText, secondaryText }) => {
 
   useEffect(() => {
     if (!isTransition && currentAction) reset();
-  }, [isTransition]);
+  }, [isTransition, currentAction]);
 
   useEffect(() => {
     if (mainText.length < 2) return;
 
-    startTimer({
-      ...timerOptions,
-      startDelay: 1000,
-      repeatCount: mainText.length - 1,
-    });
-  }, []);
+    if (isFirstMount) {
+      startTimer({
+        ...timerOptions,
+        startDelay: 1000,
+        repeatCount: mainText.length - 1,
+      });
+    }
+  }, [mainText.length, startTimer, isFirstMount]);
 
   const { main, main_hidden, hidden, shown, shouldHide, shouldShow } = styles;
 
