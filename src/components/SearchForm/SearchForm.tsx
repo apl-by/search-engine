@@ -5,15 +5,22 @@ import { SxProps, Theme } from "@mui/material/styles";
 
 type TProps = {
   onSubmit: () => void;
-  sxRoot?: SxProps<Theme>;
   value: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  sxRoot?: SxProps<Theme>;
+  size?: "small" | "medium" | undefined;
 };
 
-const SearchForm: FC<TProps> = ({ sxRoot, onSubmit, value, setInputValue }) => {
+const SearchForm: FC<TProps> = ({
+  sxRoot,
+  onSubmit,
+  value,
+  setInputValue,
+  size,
+}) => {
   return (
-    <Form noValidate sxRoot={sxRoot} onSubmit={onSubmit}>
-      <SearchInput value={value} setInputValue={setInputValue} />
+    <Form noValidate sxRoot={sxRoot} onSubmit={onSubmit} size={size}>
+      <SearchInput value={value} setInputValue={setInputValue} size={size} />
     </Form>
   );
 };

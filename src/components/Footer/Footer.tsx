@@ -16,11 +16,10 @@ const Footer = () => {
         minHeight: "60px",
         width: "100%",
         px: 8,
-        mt: 3,
         borderTop: "1px solid rgba(0, 0, 0, 0.3) ",
       }}
     >
-      <Typography variant="body2" sx={{ mr: "40px" }}>
+      <Typography variant="body2" sx={{ mb: "0", mr: "40px" }}>
         &copy; Apl-by, 2022
       </Typography>
       <Box

@@ -19,8 +19,9 @@ const Header: FC<TProps> = ({ value, setInputValue }) => {
         alignItems: "center",
         minHeight: "78px",
         width: "100%",
-        boxShadow: 1,
+        boxShadow: 0,
         px: 8,
+        borderBottom: "1px solid rgba(0, 0, 0, 0.3)",
       }}
     >
       <Logo />

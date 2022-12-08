@@ -9,7 +9,7 @@ type TProps = {
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const MainPage: FC<TProps> = ({ value, setInputValue }) => {
+const StartPage: FC<TProps> = ({ value, setInputValue }) => {
   return (
     <Box
       component={"main"}
@@ -35,4 +35,4 @@ const MainPage: FC<TProps> = ({ value, setInputValue }) => {
   );
 };
 
-export default MainPage;
+export default StartPage;

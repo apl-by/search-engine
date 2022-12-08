@@ -12,9 +12,10 @@ import { FC, useRef } from "react";
 type TProps = {
   value: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  size?: "small" | "medium" | undefined;
 };
 
-const SearchInput: FC<TProps> = ({ value, setInputValue }) => {
+const SearchInput: FC<TProps> = ({ value, setInputValue, size }) => {
   const inputRef = useRef<HTMLInputElement>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,8 +36,10 @@ const SearchInput: FC<TProps> = ({ value, setInputValue }) => {
       fullWidth
       onChange={handleChange}
       value={value}
+      size={size}
+      inputProps={{ maxLength: "300" }}
       InputProps={{
-        sx: { borderRadius: "50px", boxShadow: 3 },
+        sx: { borderRadius: "50px", boxShadow: 2 },
         startAdornment: (
           <InputAdornment position="start" disablePointerEvents>
             <SearchIcon />
@@ -49,6 +52,7 @@ const SearchInput: FC<TProps> = ({ value, setInputValue }) => {
           >
             <IconButton
               onClick={clearInput}
+              size={size}
               sx={{ display: value === "" ? "none" : "flex" }}
             >
               <CloseRoundedIcon />
@@ -57,7 +61,7 @@ const SearchInput: FC<TProps> = ({ value, setInputValue }) => {
               orientation="vertical"
               sx={{ display: "flex", height: 30, mx: 0.5 }}
             />
-            <Button type="submit" disabled={value.trim() === ""}>
+            <Button type="submit" disabled={value.trim() === ""} size={size}>
               search
             </Button>
           </InputAdornment>

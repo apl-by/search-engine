@@ -7,10 +7,12 @@ const Logo = () => {
   return (
     <Box>
       <Typography
-        variant="h4"
+        paragraph
         noWrap
         sx={{
           color: indigo[900],
+          fontSize: "32px",
+          m: 0,
           position: "relative",
           cursor: "pointer",
           userSelect: "none",
