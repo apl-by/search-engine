@@ -6,7 +6,7 @@ import { SxProps, Theme } from "@mui/material/styles";
 type TProps = {
   onSubmit: () => void;
   value: string;
-  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
   sxRoot?: SxProps<Theme>;
   size?: "small" | "medium" | undefined;
 };
@@ -15,12 +15,12 @@ const SearchForm: FC<TProps> = ({
   sxRoot,
   onSubmit,
   value,
-  setInputValue,
+  setValue,
   size,
 }) => {
   return (
     <Form noValidate sxRoot={sxRoot} onSubmit={onSubmit} size={size}>
-      <SearchInput value={value} setInputValue={setInputValue} size={size} />
+      <SearchInput value={value} setValue={setValue} size={size} />
     </Form>
   );
 };

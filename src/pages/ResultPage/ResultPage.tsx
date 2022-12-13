@@ -1,16 +1,14 @@
 import { Box, Pagination } from "@mui/material";
 import Header from "../../components/Header/Header";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import Footer from "../../components/Footer/Footer";
 import SearchList from "../../components/SearchList/SearchList";
 import Main from "../../components/Main/Main";
+import StateContext from "../../contexts/StateContext";
 
-type TProps = {
-  value: string;
-  setInputValue: React.Dispatch<React.SetStateAction<string>>;
-};
+const ResultPage: FC = () => {
+  const { inputValue, setInputValue } = useContext(StateContext);
 
-const ResultPage: FC<TProps> = ({ value, setInputValue }) => {
   return (
     <Box
       sx={{
@@ -22,7 +20,7 @@ const ResultPage: FC<TProps> = ({ value, setInputValue }) => {
         position: "relative",
       }}
     >
-      <Header value={value} setInputValue={setInputValue} />
+      <Header value={inputValue} setValue={setInputValue} />
       <Main>
         <SearchList />
         <Pagination sx={{ mt: "10px" }}></Pagination>

@@ -1,26 +1,33 @@
 import { useState } from "react";
-import Container from "@mui/material/Container";
-// import { useTheme } from '@mui/material/styles';
-import { blueGrey } from "@mui/material/colors";
 import StartPage from "../../pages/StartPage/StartPage";
 import ResultPage from "../../pages/ResultPage/ResultPage";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
+import { TInputValue } from "../../types/types";
+import StateContext from "../../contexts/StateContext";
+import Layout from "../Layout/Layout";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<StartPage />} />
+      <Route path="search" element={<ResultPage />} />
+    </Route>
+  )
+);
 
 const App = () => {
-  // const theme = useTheme()
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<TInputValue>("");
+  const state = { inputValue, setInputValue };
 
   return (
-    <Container
-      maxWidth="xl"
-      disableGutters
-      sx={{
-        backgroundColor: blueGrey[50],
-        minHeight: "100vh",
-      }}
-    >
-      <ResultPage value={inputValue} setInputValue={setInputValue}></ResultPage>
-      {/* <StartPage value={inputValue} setInputValue={setInputValue}></StartPage> */}
-    </Container>
+    <StateContext.Provider value={state}>
+      <RouterProvider router={router} /* fallbackElement={} */ />
+    </StateContext.Provider>
   );
 };
 

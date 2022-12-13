@@ -11,19 +11,19 @@ import { FC, useRef } from "react";
 
 type TProps = {
   value: string;
-  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
   size?: "small" | "medium" | undefined;
 };
 
-const SearchInput: FC<TProps> = ({ value, setInputValue, size }) => {
+const SearchInput: FC<TProps> = ({ value, setValue, size }) => {
   const inputRef = useRef<HTMLInputElement>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    setValue(e.target.value);
   };
 
   const clearInput = () => {
-    setInputValue("");
+    setValue("");
     if (inputRef.current !== undefined) inputRef.current.focus();
   };
 

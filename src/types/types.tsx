@@ -7,3 +7,5 @@ export type TGetShortTextArgs = {
   cardWidth: number;
   requiredRowCount: number;
 };
+
+export type TInputValue = string;

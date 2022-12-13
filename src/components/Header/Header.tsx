@@ -6,10 +6,10 @@ import { blueGrey } from "@mui/material/colors";
 
 type TProps = {
   value: string;
-  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Header: FC<TProps> = ({ value, setInputValue }) => {
+const Header: FC<TProps> = ({ value, setValue }) => {
   return (
     <AppBar
       position="sticky"
@@ -29,7 +29,7 @@ const Header: FC<TProps> = ({ value, setInputValue }) => {
       <SearchForm
         onSubmit={() => void 0}
         value={value}
-        setInputValue={setInputValue}
+        setValue={setValue}
         size="small"
         sxRoot={{ ml: "40px" }}
       />
