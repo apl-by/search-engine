@@ -7,7 +7,7 @@ type TProp = {
 };
 
 // Количество строк для короткого текста
-const requiredRowCount = 2;
+const requiredRowCount = 3;
 
 const SearchItem: FC<TProp> = ({ data }) => {
   const boxRef = useRef<HTMLDivElement>(null);

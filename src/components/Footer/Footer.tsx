@@ -13,7 +13,7 @@ const Footer = () => {
       sx={{
         display: "flex",
         alignItems: "center",
-        minHeight: "60px",
+        minHeight: "70px",
         width: "100%",
         px: 8,
         borderTop: "1px solid rgba(0, 0, 0, 0.3) ",

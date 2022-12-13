@@ -2,6 +2,7 @@ import { AppBar } from "@mui/material";
 import { FC } from "react";
 import Logo from "../Logo/Logo";
 import SearchForm from "../SearchForm/SearchForm";
+import { blueGrey } from "@mui/material/colors";
 
 type TProps = {
   value: string;
@@ -12,8 +13,8 @@ const Header: FC<TProps> = ({ value, setInputValue }) => {
   return (
     <AppBar
       position="sticky"
-      color="transparent"
       sx={{
+        backgroundColor: blueGrey[50],
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
