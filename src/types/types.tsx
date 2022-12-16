@@ -8,4 +8,18 @@ export type TGetShortTextArgs = {
   requiredRowCount: number;
 };
 
-export type TInputValue = string;
+export type TResItem = {
+  id: string;
+  name: string;
+  url: string;
+  displayUrl: string;
+  snippet: string;
+};
+
+export type TResData = {
+  query: string;
+  searchResult: Array<TResItem>;
+  commonLength: number;
+  page: number;
+  limit?: number;
+};

@@ -1,7 +1,13 @@
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
+import { TResItem } from "../../types/types";
 import SearchItem from "../SearchItem/SearchItem";
+import { FC } from "react";
 
-const SearchList = () => {
+type TProps = {
+  data: Array<TResItem>;
+};
+
+const SearchList: FC<TProps> = ({ data }) => {
   return (
     <Stack
       component={"ul"}
@@ -13,62 +19,16 @@ const SearchList = () => {
         p: 0,
       }}
     >
-      <SearchItem
-        data={{
-          title: "Shrimp and Chorizo Paella",
-          link: "September 14, 2016",
-          text: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem `,
-        }}
-      />
-      <SearchItem
-        data={{
-          title: "Shrimp and Chorizo Paella",
-          link: "September 14, 2016",
-          text: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem ducimus distinctio id consequuntur  ipsum animi minus repellendus dignissimos, ex laboriosam reprehenderit  quis molestias consequatur iure ad nostrum consectetur minima hic!ddd sd ddfgdg `,
-        }}
-      />
-      <SearchItem
-        data={{
-          title: "Shrimp and Chorizo Paella",
-          link: "September 14, 2016",
-          text: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem `,
-        }}
-      />
-      <SearchItem
-        data={{
-          title: "Shrimp and Chorizo Paella",
-          link: "September 14, 2016",
-          text: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem ducimus distinctio id consequuntur  ipsum animi minus repellendus dignissimos, ex laboriosam reprehenderit  quis molestias consequatur iure ad nostrum consectetur minima hic!ddd sd ddfgdg `,
-        }}
-      />
-      <SearchItem
-        data={{
-          title: "Shrimp and Chorizo Paella",
-          link: "September 14, 2016",
-          text: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem `,
-        }}
-      />
-      <SearchItem
-        data={{
-          title: "Shrimp and Chorizo Paella",
-          link: "September 14, 2016",
-          text: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem ducimus distinctio id consequuntur  ipsum animi minus repellendus dignissimos, ex laboriosam reprehenderit  quis molestias consequatur iure ad nostrum consectetur minima hic!ddd sd ddfgdg `,
-        }}
-      />
-      <SearchItem
-        data={{
-          title: "Shrimp and Chorizo Paella",
-          link: "September 14, 2016",
-          text: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem `,
-        }}
-      />
-      <SearchItem
-        data={{
-          title: "Shrimp and Chorizo Paella",
-          link: "September 14, 2016",
-          text: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem ducimus distinctio id consequuntur  ipsum animi minus repellendus dignissimos, ex laboriosam reprehenderit  quis molestias consequatur iure ad nostrum consectetur minima hic!ddd sd ddfgdg `,
-        }}
-      />
+      {data.map((i) => (
+        <SearchItem
+          key={i.id}
+          data={{
+            title: i.name,
+            link: i.displayUrl,
+            text: i.snippet,
+          }}
+        />
+      ))}
     </Stack>
   );
 };

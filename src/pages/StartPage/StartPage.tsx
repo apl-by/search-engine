@@ -2,11 +2,13 @@ import { Box } from "@mui/material";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import Title from "../../components/Title/Title";
 import { titleMainText, titleSecondaryText } from "./data";
-import { FC, useContext } from "react";
-import StateContext from "../../contexts/StateContext";
+import { FC } from "react";
 
-const StartPage: FC = () => {
-  const { inputValue, setInputValue } = useContext(StateContext);
+type TProps = {
+  inputState: [string, React.Dispatch<React.SetStateAction<string>>];
+};
+
+const StartPage: FC<TProps> = ({ inputState }) => {
   return (
     <Box
       component={"main"}
@@ -23,11 +25,7 @@ const StartPage: FC = () => {
         mainText={titleMainText}
         secondaryText={titleSecondaryText}
       />
-      <SearchForm
-        onSubmit={() => void 0}
-        value={inputValue}
-        setValue={setInputValue}
-      />
+      <SearchForm inputState={inputState} />
     </Box>
   );
 };

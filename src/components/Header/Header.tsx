@@ -1,15 +1,16 @@
 import { AppBar } from "@mui/material";
-import { FC } from "react";
 import Logo from "../Logo/Logo";
 import SearchForm from "../SearchForm/SearchForm";
 import { blueGrey } from "@mui/material/colors";
+import { Link } from "react-router-dom";
+import { FC } from "react";
 
 type TProps = {
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  inputState: [string, React.Dispatch<React.SetStateAction<string>>];
 };
 
-const Header: FC<TProps> = ({ value, setValue }) => {
+const Header: FC<TProps> = ({ inputState }) => {
+  const [, setInput] = inputState;
   return (
     <AppBar
       position="sticky"
@@ -25,11 +26,15 @@ const Header: FC<TProps> = ({ value, setValue }) => {
         borderBottom: "1px solid rgba(0, 0, 0, 0.3)",
       }}
     >
-      <Logo />
+      <Link
+        style={{ textDecoration: "none" }}
+        to="/"
+        onClick={() => setInput("")}
+      >
+        <Logo />
+      </Link>
       <SearchForm
-        onSubmit={() => void 0}
-        value={value}
-        setValue={setValue}
+        inputState={inputState}
         size="small"
         sxRoot={{ ml: "40px" }}
       />

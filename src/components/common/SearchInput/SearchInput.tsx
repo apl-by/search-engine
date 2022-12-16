@@ -8,6 +8,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { FC, useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 type TProps = {
   value: string;
@@ -17,6 +18,7 @@ type TProps = {
 
 const SearchInput: FC<TProps> = ({ value, setValue, size }) => {
   const inputRef = useRef<HTMLInputElement>();
+  const { pathname } = useLocation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -30,7 +32,8 @@ const SearchInput: FC<TProps> = ({ value, setValue, size }) => {
   return (
     <TextField
       id="input-search"
-      autoFocus
+      name="q"
+      autoFocus={pathname === "/"}
       inputRef={inputRef}
       placeholder="Try to search"
       fullWidth

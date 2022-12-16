@@ -4,17 +4,12 @@ import { SxProps, Theme } from "@mui/material/styles";
 
 type TProps = {
   children: React.ReactNode;
-  onSubmit: () => void;
-  noValidate?: boolean;
   sxRoot?: SxProps<Theme>;
   size?: "small" | "medium" | undefined;
-};
+} & React.FormHTMLAttributes<HTMLFormElement> &
+  React.RefAttributes<HTMLFormElement>;
 
-const Form: FC<TProps> = ({ children, onSubmit, noValidate, sxRoot, size }) => {
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-  };
-
+const Form: FC<TProps> = ({ children, sxRoot, size, ...rest }) => {
   const sizePropSx = {
     maxWidth:
       size === "medium" ? "600px" : size === "small" ? "460px" : undefined,
@@ -23,13 +18,13 @@ const Form: FC<TProps> = ({ children, onSubmit, noValidate, sxRoot, size }) => {
   return (
     <Box
       component={"form"}
-      noValidate={noValidate}
-      onSubmit={handleSubmit}
+      noValidate
       sx={[
         { maxWidth: "600px", width: "100%" },
         sizePropSx,
         ...(Array.isArray(sxRoot) ? sxRoot : [sxRoot]),
       ]}
+      {...rest}
     >
       {children}
     </Box>

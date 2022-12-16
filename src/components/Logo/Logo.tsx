@@ -18,7 +18,6 @@ const Logo = () => {
           userSelect: "none",
           filter: `blur(1.2px) url(#${svgFilterId})`,
         }}
-        aria-label="Logo"
       >
         Apl-by
       </Typography>

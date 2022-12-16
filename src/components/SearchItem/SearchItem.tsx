@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, Link, Box } from "@mui/material";
 import { FC, useLayoutEffect, useRef, useState } from "react";
-import { getShortText } from "../../utils";
+import { getShortText } from "../../utils/utils";
 
 type TProp = {
   data: { title: string; link: string; text: string };
@@ -54,14 +54,22 @@ const SearchItem: FC<TProp> = ({ data }) => {
           width: "100%",
           p: 1,
           "&:last-child": { pb: 1 },
+          "& .MuiLink-root": {
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          },
         }}
       >
         <Link
-          href="#"
+          href={data.link}
+          target="_blank"
+          rel="noreferrer"
           underline="none"
           sx={{
             fontSize: "20px",
             lineHeight: "1.2",
+            width: "90%",
             color: "#1a237e",
             ":visited": {
               color: "#880e4f",
@@ -73,7 +81,14 @@ const SearchItem: FC<TProp> = ({ data }) => {
         >
           {data.title}
         </Link>
-        <Link href="#">{data.link}</Link>
+        <Link
+          href={data.link}
+          target="_blank"
+          rel="noreferrer"
+          sx={{ width: "80%" }}
+        >
+          {data.link}
+        </Link>
         <Box
           ref={boxRef}
           sx={{
