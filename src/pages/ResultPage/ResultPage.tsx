@@ -85,10 +85,7 @@ const ResultPage: FC<TProps> = ({ inputState }) => {
           onChange={handlePagination}
           page={resData.page}
           count={Math.ceil(resData.commonLength / 10)}
-          sx={{
-            mt: "10px",
-            "@media (max-width: 600px)": {},
-          }}
+          sx={{ mt: "10px" }}
         ></Pagination>
       </>
     );

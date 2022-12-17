@@ -1,6 +1,7 @@
 import { Card, CardContent, Typography, Link, Box } from "@mui/material";
-import { FC, memo, useLayoutEffect, useRef, useState } from "react";
+import { FC, useLayoutEffect, useRef, useState } from "react";
 import { getShortText } from "../../utils/utils";
+import sxSearchItem from "./sx";
 
 type TProp = {
   data: { title: string; link: string; text: string; lang: string };
@@ -34,53 +35,14 @@ const SearchItem: FC<TProp> = ({ data }) => {
   }, [data]);
 
   return (
-    <Card
-      component={"li"}
-      sx={{
-        display: "flex",
-        maxWidth: "650px",
-        width: "100%",
-        backgroundColor: "rgba(255,255,255, 0.2)",
-        boxShadow: 1,
-        borderRadius: "15px",
-        border: "1px solid rgba(0, 0, 0, 0.2)",
-      }}
-    >
-      <CardContent
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          width: "100%",
-          p: 1,
-          "&:last-child": { pb: 1 },
-          "& .MuiLink-root": {
-            overflow: "hidden",
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
-          },
-        }}
-      >
+    <Card component={"li"} sx={sxSearchItem.card}>
+      <CardContent sx={sxSearchItem.content}>
         <Link
           href={data.link}
           target="_blank"
           rel="noreferrer"
           underline="none"
-          sx={{
-            fontSize: "20px",
-            lineHeight: "1.2",
-            width: "90%",
-            color: "#1a237e",
-            "@media (max-width: 600px)": {
-              fontSize: "17px",
-            },
-            ":visited": {
-              color: "#880e4f",
-            },
-            ":hover": {
-              color: "green",
-            },
-          }}
+          sx={sxSearchItem.content__title}
         >
           {data.title}
         </Link>
@@ -88,30 +50,15 @@ const SearchItem: FC<TProp> = ({ data }) => {
           href={data.link}
           target="_blank"
           rel="noreferrer"
-          sx={{
-            width: "80%",
-            "@media (max-width: 600px)": {
-              fontSize: "15px",
-            },
-          }}
+          sx={sxSearchItem.content__link}
         >
           {data.link}
         </Link>
-        <Box
-          ref={boxRef}
-          sx={{
-            width: "100%",
-          }}
-        >
+        <Box ref={boxRef} sx={sxSearchItem["content__text-wrapper"]}>
           <Typography
             variant="body2"
             ref={textRef}
-            sx={{
-              overflowWrap: "anywhere",
-              "@media (max-width: 600px)": {
-                fontSize: "13px",
-              },
-            }}
+            sx={sxSearchItem.content__text}
           >
             {shortText === "" || showFullText ? data.text : shortText}
             {shortText !== "" && (
@@ -119,14 +66,7 @@ const SearchItem: FC<TProp> = ({ data }) => {
                 variant="caption"
                 component={"span"}
                 onClick={() => setShowFullText(!showFullText)}
-                sx={{
-                  cursor: "pointer",
-                  opacity: "0.7",
-                  ":hover": {
-                    opacity: "1",
-                    color: "#311b92",
-                  },
-                }}
+                sx={sxSearchItem["content__text-chip"]}
               >
                 {showFullText ? "   Скрыть" : "...Читать ещё"}
               </Typography>

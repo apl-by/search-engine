@@ -1,9 +1,9 @@
 import { AppBar } from "@mui/material";
 import Logo from "../Logo/Logo";
 import SearchForm from "../SearchForm/SearchForm";
-import { blueGrey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 import { FC } from "react";
+import sxHeader from "./sx";
 
 type TProps = {
   inputState: [string, React.Dispatch<React.SetStateAction<string>>];
@@ -11,21 +11,9 @@ type TProps = {
 
 const Header: FC<TProps> = ({ inputState }) => {
   const [, setInput] = inputState;
+
   return (
-    <AppBar
-      position="sticky"
-      sx={{
-        backgroundColor: blueGrey[50],
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        minHeight: "78px",
-        width: "100%",
-        boxShadow: 0,
-        px: { xs: 1, sm: 6, md: 8 },
-        borderBottom: "1px solid rgba(0, 0, 0, 0.3)",
-      }}
-    >
+    <AppBar position="sticky" sx={sxHeader.header}>
       <Link
         style={{ textDecoration: "none" }}
         to="/"

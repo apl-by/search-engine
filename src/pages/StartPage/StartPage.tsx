@@ -27,16 +27,13 @@ const StartPage: FC<TProps> = ({ inputState }) => {
       <Title
         sxRoot={{
           mt: {
-            xs: 12,
+            xs: 13,
             sm: 15,
-            md: 15,
-            lg: 15,
           },
           mb: {
             xs: 2,
             sm: 3,
             md: 4,
-            lg: 4,
           },
         }}
         mainText={titleMainText}
