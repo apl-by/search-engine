@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3000/search";
+export const BASE_URL = "https://api.proxy.apl-by.ru/search";
 
 export const alertMessages = {
   error: "An error has occurred. Сheck your connection or try again later",
