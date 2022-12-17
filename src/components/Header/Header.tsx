@@ -22,7 +22,7 @@ const Header: FC<TProps> = ({ inputState }) => {
         minHeight: "78px",
         width: "100%",
         boxShadow: 0,
-        px: 8,
+        px: { xs: 1, sm: 6, md: 8 },
         borderBottom: "1px solid rgba(0, 0, 0, 0.3)",
       }}
     >
@@ -36,7 +36,7 @@ const Header: FC<TProps> = ({ inputState }) => {
       <SearchForm
         inputState={inputState}
         size="small"
-        sxRoot={{ ml: "40px" }}
+        sxRoot={{ ml: { xs: "15px", sm: "30px", md: "40px" } }}
       />
     </AppBar>
   );

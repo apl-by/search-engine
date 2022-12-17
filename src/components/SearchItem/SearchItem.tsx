@@ -1,9 +1,9 @@
 import { Card, CardContent, Typography, Link, Box } from "@mui/material";
-import { FC, useLayoutEffect, useRef, useState } from "react";
+import { FC, memo, useLayoutEffect, useRef, useState } from "react";
 import { getShortText } from "../../utils/utils";
 
 type TProp = {
-  data: { title: string; link: string; text: string };
+  data: { title: string; link: string; text: string; lang: string };
 };
 
 // Количество строк для короткого текста
@@ -71,6 +71,9 @@ const SearchItem: FC<TProp> = ({ data }) => {
             lineHeight: "1.2",
             width: "90%",
             color: "#1a237e",
+            "@media (max-width: 600px)": {
+              fontSize: "17px",
+            },
             ":visited": {
               color: "#880e4f",
             },
@@ -85,7 +88,12 @@ const SearchItem: FC<TProp> = ({ data }) => {
           href={data.link}
           target="_blank"
           rel="noreferrer"
-          sx={{ width: "80%" }}
+          sx={{
+            width: "80%",
+            "@media (max-width: 600px)": {
+              fontSize: "15px",
+            },
+          }}
         >
           {data.link}
         </Link>
@@ -98,7 +106,12 @@ const SearchItem: FC<TProp> = ({ data }) => {
           <Typography
             variant="body2"
             ref={textRef}
-            sx={{ overflowWrap: "anywhere" }}
+            sx={{
+              overflowWrap: "anywhere",
+              "@media (max-width: 600px)": {
+                fontSize: "13px",
+              },
+            }}
           >
             {shortText === "" || showFullText ? data.text : shortText}
             {shortText !== "" && (

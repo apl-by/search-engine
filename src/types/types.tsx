@@ -14,6 +14,7 @@ export type TResItem = {
   url: string;
   displayUrl: string;
   snippet: string;
+  language: string;
 };
 
 export type TResData = {

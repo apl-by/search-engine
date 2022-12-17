@@ -17,6 +17,12 @@ const Logo = () => {
           cursor: "pointer",
           userSelect: "none",
           filter: `blur(1.2px) url(#${svgFilterId})`,
+          "@media (max-width: 600px)": {
+            fontSize: "26px",
+          },
+          "@media (max-width: 450px)": {
+            fontSize: "22px",
+          },
         }}
       >
         Apl-by

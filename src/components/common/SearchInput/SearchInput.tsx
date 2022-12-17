@@ -64,7 +64,12 @@ const SearchInput: FC<TProps> = ({ value, setValue, size }) => {
               orientation="vertical"
               sx={{ display: "flex", height: 30, mx: 0.5 }}
             />
-            <Button type="submit" disabled={value.trim() === ""} size={size}>
+            <Button
+              type="submit"
+              disabled={value.trim() === ""}
+              sx={{ p: { xs: 0, sm: 1 } }}
+              size={size}
+            >
               search
             </Button>
           </InputAdornment>

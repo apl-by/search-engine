@@ -19,7 +19,7 @@ const SearchForm: FC<TProps> = ({ sxRoot, size, inputState }) => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const to = "/search";
-    const newSearch = `?q=${input}&num=1`;
+    const newSearch = `?q=${input}&page=1`;
     if (pathname + search === to + newSearch) return;
     navigate(to + newSearch);
   };

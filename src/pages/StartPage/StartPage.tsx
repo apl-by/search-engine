@@ -18,10 +18,27 @@ const StartPage: FC<TProps> = ({ inputState }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        p: {
+          xs: 1,
+          sm: 3,
+        },
       }}
     >
       <Title
-        sxRoot={{ mt: 15, mb: 4 }}
+        sxRoot={{
+          mt: {
+            xs: 12,
+            sm: 15,
+            md: 15,
+            lg: 15,
+          },
+          mb: {
+            xs: 2,
+            sm: 3,
+            md: 4,
+            lg: 4,
+          },
+        }}
         mainText={titleMainText}
         secondaryText={titleSecondaryText}
       />

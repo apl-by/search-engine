@@ -3,10 +3,11 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import SearchList from "../../components/SearchList/SearchList";
 import Main from "../../components/Main/Main";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useCallback } from "react";
 import { TResData } from "../../types/types";
 import { useLocation, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../utils/data";
+import { alertMessages, BASE_URL } from "../../utils/data";
+import UiAlert from "../../components/UiAlert/UiAlert";
 
 type TProps = {
   inputState: [string, React.Dispatch<React.SetStateAction<string>>];
@@ -22,40 +23,54 @@ const ResultPage: FC<TProps> = ({ inputState }) => {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
 
+  const loadData = useCallback(
+    (controller: AbortController) => {
+      fetch(BASE_URL + search, {
+        signal: controller.signal,
+      })
+        .then((res) => {
+          if (res.ok) return res.json();
+          throw new Error("Server error");
+        })
+        .then((res: TResData) => {
+          if (res.limit !== undefined) {
+            setIsFakeData(true);
+            setInput(res.query);
+            setResData(res);
+            return;
+          }
+          setIsFakeData(false);
+          setResData(res);
+        })
+        .catch((e) => {
+          if (e.name === "AbortError") return;
+          setError(e);
+        });
+    },
+    [search, setInput]
+  );
+
   useEffect(() => {
     let controller = new AbortController();
-    fetch(BASE_URL + search, {
-      signal: controller.signal,
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        throw new Error("Server error");
-      })
-      .then((res: TResData) => {
-        if (res.limit !== undefined) {
-          setIsFakeData(true);
-          setInput(res.query);
-          setResData(res);
-          return;
-        }
-        setIsFakeData(false);
-        setResData(res);
-      })
-      .catch((e) => {
-        if (e.name === "AbortError") return;
-        setError(e);
-      });
+    setError(null);
+    loadData(controller);
 
     return () => controller.abort();
-  }, [search, setInput]);
+  }, [search, loadData]);
 
   const handlePagination = (e: React.ChangeEvent<unknown>, p: number) => {
-    const newSearch = search.replace(/num=\d+/, `num=${p}`);
+    const newSearch = search.replace(/page=\d+/, `page=${p}`);
     navigate(pathname + newSearch);
     setResData(null);
   };
 
   const insertJSX = (resData: TResData | null) => {
+    if (error)
+      return (
+        <Typography variant="body1">
+          {"An error has occurred. Try again later"}
+        </Typography>
+      );
     if (resData === null) return <></>;
     if (resData.commonLength === 0)
       return (
@@ -70,7 +85,10 @@ const ResultPage: FC<TProps> = ({ inputState }) => {
           onChange={handlePagination}
           page={resData.page}
           count={Math.ceil(resData.commonLength / 10)}
-          sx={{ mt: "10px" }}
+          sx={{
+            mt: "10px",
+            "@media (max-width: 600px)": {},
+          }}
         ></Pagination>
       </>
     );
@@ -90,6 +108,19 @@ const ResultPage: FC<TProps> = ({ inputState }) => {
       <Header inputState={inputState} />
       <Main>{insertJSX(resData)}</Main>
       <Footer />
+
+      <UiAlert type={"error"} depsOf={error} message={alertMessages.error} />
+      <UiAlert
+        type={"info"}
+        depsOf={isFakeData}
+        message={
+          resData && resData.limit === 0
+            ? alertMessages.limit
+            : resData
+            ? alertMessages.apiError
+            : ""
+        }
+      />
     </Box>
   );
 };

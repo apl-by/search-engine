@@ -24,8 +24,9 @@ const SearchList: FC<TProps> = ({ data }) => {
           key={i.id}
           data={{
             title: i.name,
-            link: i.displayUrl,
+            link: i.url,
             text: i.snippet,
+            lang: i.language,
           }}
         />
       ))}
