@@ -16,7 +16,11 @@ const Footer = () => {
         &copy; Apl-by, 2022
       </Typography>
       <Box sx={sxFooter.footer__links}>
-        <Link href="https://github.com/apl-by" target="_blank" rel="noreferrer">
+        <Link
+          href="https://github.com/apl-by/search-engine"
+          target="_blank"
+          rel="noreferrer"
+        >
           <Icon>
             <GitHubIcon />
           </Icon>
